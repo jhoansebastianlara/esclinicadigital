@@ -1,0 +1,128 @@
+/* app css stylesheet */
+
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+  content: "";
+  padding: 0;
+}
+
+table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    -webkit-border-horizontal-spacing: 2px;
+    -webkit-border-vertical-spacing: 2px;
+}
+
+.tiny {
+    font-size: 14px !important;
+}
+
+#bottomBar {
+    background-color: #F4F4F4;
+    border-top: 1px solid #DCDCDC;
+    bottom: 0 !important;
+    position: fixed;
+    padding: 5px;
+    width: 100% !important;
+    z-index: 2;
+}
+
+.no-margin-custom {
+    margin:0px !important;
+}
+
+.error-custom {
+    color: blue;
+}
+
+.error {
+    background-color: rgba(255,0,0, 0) !important;
+    color: #FF0000 !important;    
+}
+
+.form-container-custom {
+    margin-bottom: 50px;
+}
+
+.error-input {
+    margin-top: -16px !important;
+}
+
+.searchBar {
+    margin-top: 20px !important;
+}
+
+.fieldset-standar {
+    padding-top: 5px; 
+    padding-bottom: 10px;
+    margin: 0 0 10px 0;
+}
+
+/* Estilo para los fielset de los responsables */
+.fieldset-custodians {
+    padding-top: 0px; 
+    padding-bottom: 0px;
+}
+
+/* clase para el texto que se escribe en los campos autocompletables */
+.angucomplete-input-item {
+    color: #000 !important;
+}
+
+/**
+*   clase para los items que coinciden con el texto ingresado en los 
+*   campos autocompletables.
+*/
+.angucomplete-input-match {
+    color: #1e90ff;
+    font-weight: bold;
+}
+
+.angucomplete-input-required {
+    color: orange !important;
+}
+
+/** contenedor de los items encontrados */
+.angucomplete-dropdown {
+    width: auto !important;
+    overflow-y: auto;
+    max-height: 200px; // your preference
+}
+
+/** descripcion de los items encontrados */
+.angucomplete-description {
+    font-size: 16px !important;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/** Item seleccionado */
+.angucomplete-selected-row {
+    background-color: #DDDDDD !important;
+    color: #000 !important;
+}

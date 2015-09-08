@@ -1,0 +1,6 @@
+{
+	"helloWorld": "hello world {name} hi",
+    "yes": "Yes",
+    "no": "No",
+    "required": "Requerido"
+}

@@ -1,0 +1,51 @@
+<nav data-topbar role="navigation" ng-controller="TopBarController">
+    <top-bar>
+        <ul class="title-area">
+            <li class="name">
+                <h1><a href="#/dash" data-i18n="topBar.appName"></a></h1>
+            </li>
+            <li toggle-top-bar class="menu-icon">
+                <a>
+                    <span data-i18n="common.menu"></span>
+                </a>
+            </li>
+        </ul>
+
+        <top-bar-section>
+            <ul class="left">
+                <li class="divider"></li>
+                <li class="has-form">
+                    <div class="row collapse">
+                        <div class="small-9 columns">
+                            <input type="text" 
+                                    placeholder="{{ 'topBar.searchFieldPlaceholder' | i18n }}">
+                        </div>
+                        <div class="small-3 columns">
+                            <a href="#" class="button expand" data-i18n="common.search"></a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="right">
+                <li class="divider"></li>
+                <li ng-repeat="module in moduleList | orderBy:predicate:reverse"
+                        ng-class="getClass(module.ROUTE)"
+                        ng-if="module.DISPLAY_IN_TOPBAR">
+                    <a href="/#{{module.PATH}}">{{module.NAME}}</a>
+                </li>
+                <li class="divider"></li>
+
+                <li has-dropdown>
+                    <a href="#">{{userData.username}}</a>
+                    <ul top-bar-dropdown>
+                        <li>
+                            <a ng-click="logout()" data-i18n="topBar.signOut"></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </top-bar-section>
+  </top-bar>
+</nav>

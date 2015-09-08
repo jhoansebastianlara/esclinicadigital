@@ -1,0 +1,435 @@
+
+<section class="form-container-custom" 
+			style="position: relative;"
+			ng-controller="PatientController">
+    <div class="row">
+        <div class="small-12 columns">
+	        <form name="theForm">
+				<fieldset>
+					<legend><h4 data-i18n="form.personalData"></h4></legend>
+					<div class="row">
+						<div class="small-12 medium-6 columns">
+							<label>{{ 'patient.nameField' | i18n }}
+								<input type="text" 
+									   disabled
+									   name="name" 
+									   id="name" 
+									   ng-model="patient.name"
+									   maxlength="100" 
+									   placeholder="{{ 'patient.nameFieldPlaceholder' | i18n }}" required />
+							</label>
+							<span class="error error-input" 
+									ng-show="theForm.name.$dirty && theForm.name.$invalid">
+								<span ng-show="theForm.name.$error.required" 
+									data-i18n="patient.nameFieldRequired">
+								</span>
+							</span>
+						</div>
+						<div class="small-12 medium-6 columns">
+							<label>{{ 'patient.lastnameField' | i18n }}
+								<input type="text" 
+								       disabled
+									   name="lastname" 
+									   id="lastname" 
+									   ng-model="patient.lastname"
+									   maxlength="100" 
+									   placeholder="{{ 'patient.lastnameFieldPlaceholder' | i18n }}" required />
+							</label>
+							<span class="error error-input" 
+									ng-show="theForm.lastname.$dirty && theForm.lastname.$invalid">
+								<span ng-show="theForm.lastname.$error.required"
+									data-i18n="patient.lastnameFieldRequired">									
+								</span>
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="small-12 medium-6 columns">
+							<label>
+								{{ 'patient.identificationField' | i18n }}
+							</label>
+							<div class="row">
+								<div class="small-12 medium-6 columns">
+									<select class="expand"
+									        disabled
+											name="identificationTypeId"
+											id="identificationTypeId"
+											ng-model="patient.identificationTypeId"
+											required>
+										<option value="" selected disabled
+											data-i18n="patient.identificationTypeField">
+										</option>
+										<option ng-repeat="idType in identificationTypeList" 
+												ng-selected="idType.identificationTypeId == patient.identificationTypeId"
+												value="{{idType.identificationTypeId}}">
+											{{ idType.abbeviation + ' - ' + idType.name }}
+										</option>
+									</select>
+								</div>
+								<div class="small-12 medium-6 columns">
+									<input type="text"
+									       disabled 
+										   name="identificationNumber" 
+										   id="identificationNumber" 
+										   ng-model="patient.identificationNumber"
+										   maxlength="15" 
+										   data-unique-directive="{id: '{{patient.patientId}}', property: 'patient.identificationNumber'}"
+										   placeholder="{{ 'patient.identificationNumberField' | i18n }}" required />
+								</div>
+							</div>
+							<div class="row">
+								<div class="small-12 columns">
+									<span class="error error-input" 
+											ng-show="(theForm.identificationNumber.$dirty && theForm.identificationNumber.$invalid) || (theForm.identificationNumber.$dirty && theForm.identificationType.$invalid) || identificationNumberExists">
+										<span ng-show="theForm.identificationType.$error.required"
+											data-i18n="patient.identificationTypeFieldRequired">
+										</span>
+
+										<span ng-show="theForm.identificationNumber.$dirty && theForm.identificationNumber.$error.required"
+											data-i18n="patient.identificationNumberFieldRequired">
+										</span>
+
+										<span ng-show="theForm.identificationNumber.$error.unique"
+											data-i18n="patient.identificationNumberFieldAlreadyExists" 
+											data-identification-number="{{patient.identificationNumber}}">
+										</span>
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="small-12 medium-6 columns">
+							<label>
+								{{ 'patient.genderField' | i18n }}
+							</label>
+							<input type="radio" 
+							    disabled 
+								name="gender" 
+								value="m" 
+								ng-model="patient.gender" 
+								id="maleRadio"
+								required>
+							<label for="maleRadio" data-i18n="common.maleGender"></label>
+							
+							<input type="radio" 
+							        disabled
+									name="gender" 
+									value="f" 
+									ng-model="patient.gender" 
+									id="femaleRadio"
+									required>
+							<label for="femaleRadio" data-i18n="common.femaleGender"></label>
+
+							<span class="error" 
+									ng-show="theForm.gender.$dirty && theForm.gender.$invalid">
+								<span ng-show="theForm.gender.$error.required"
+									data-i18n="patient.genderFieldRequired">
+								</span>
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="small-12 medium-6 columns">
+							<label>
+								{{ 'patient.birthdateField' | i18n}} 
+								<div class="row">
+									<div class="small-3 large-3 columns">
+										<input type="tel"
+										       disabled 
+											   name="day"
+											   id="day"
+											   ng-model="patient.day"
+											   ng-change="validateBirthDate()"
+											   placeholder="{{ 'common.day' | i18n }}"
+											   maxlength="2" 
+											   required>
+									</div>
+									<div class="small-5 large-5 columns">
+										<select class="expand"
+										        disabled
+												name="month"
+												id="month"
+												ng-model="patient.month"
+												ng-change="validateBirthDate()"
+												required>
+											<option value="" selected disabled
+												data-i18n="common.month">
+											</option>
+											<option ng-repeat="month in CONSTANTS.MONT_LIST" 
+												value="{{month.ID}}"
+												data-i18n="common.{{month.NAME}}">
+												
+											</option>
+										</select>
+									</div>
+									<div class="small-4 large-4 columns">
+										<input type="tel" 
+										       disabled
+											   name="year"
+											   id="year"
+											   ng-model="patient.year"
+											   ng-change="validateBirthDate()"
+											   placeholder="{{ 'common.year' | i18n }}"
+											   maxlength="4" 
+											   required>
+									</div>
+								</div>
+							</label>
+							<span class="error error-input" 
+								   ng-show="theForm.day.$dirty && theForm.month.$dirty && theForm.year.$dirty">
+								<span ng-show="false"
+									data-i18n="patient.birthdateFieldRequired">
+								</span>
+								<span ng-show="!isValidBirthdate"
+									data-i18n="patient.birthdateFieldInvalid">
+								</span>								
+							</span>
+						</div>
+						<div class="small-12 medium-6 columns">
+							<label>
+								{{ 'patient.placebirthField' | i18n }}
+								<input type="text" 
+								       disabled
+									   ng-autocomplete
+									   options="CONSTANTS.NG_AUTOCOMPLETE.DEFAULT"
+									   name="placebirth" 
+									   id="placebirth" 
+									   ng-model="patient.placebirth"
+									   maxlength="100" 
+									   placeholder="{{ 'patient.placebirthFieldPlaceholder' | i18n }}" required />
+							</label>
+							<span class="error error-input" 
+									ng-show="theForm.placebirth.$dirty && theForm.placebirth.$invalid">
+								<span ng-show="theForm.placebirth.$error.required" 
+									data-i18n="patient.placebirthFieldRequired">
+								</span>
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="small-12 medium-6 columns">
+							<label>
+								{{ 'patient.maritalStatusField' | i18n }}
+								<select class="expand"
+										name="maritalStatusId"
+										ng-model="patient.maritalStatusId"
+										required>
+									<option value="" selected disabled
+										data-i18n="patient.maritalStatusFieldPlaceholder">
+									</option>
+									<option ng-repeat="maritalStatus in matiralStatusList" 
+											value="{{maritalStatus.maritalStatusId}}">
+										{{maritalStatus.name}}
+									</option>
+								</select>
+							</label>
+							<span class="error error-input" 
+									ng-show="theForm.maritalStatusId.$dirty && theForm.maritalStatusId.$invalid">
+								<span ng-show="theForm.maritalStatusId.$error.required" 
+									data-i18n="patient.maritalStatusFieldRequired">
+								</span>
+							</span>
+						</div>
+						<div class="small-12 medium-6 columns">
+							<label>
+								{{ 'patient.occupationField' | i18n }}
+								<input type="text" 
+									name="occupation"
+									ng-model="patient.occupation"
+									placeholder="{{ 'patient.occupationFieldPlaceholder' | i18n }}"
+									maxlength="50">
+							</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="small-12 medium-4 columns">
+							<label>
+								{{ 'patient.residenceCityField' | i18n }}
+								<input type="text" 
+									   ng-autocomplete
+									   options="CONSTANTS.NG_AUTOCOMPLETE.DEFAULT"
+									   name="residenceCity" 
+									   id="residenceCity" 
+									   ng-model="patient.residenceCity"
+									   maxlength="100" 
+									   placeholder="{{ 'patient.residenceCityFieldPlaceholder' | i18n }}"/>
+							</label>
+						</div>
+						<div class="small-12 medium-8 columns">
+							<label>								
+								<small>&nbsp;</small>
+								<input type="text" 
+									   name="address" 
+									   id="address" 
+									   ng-model="patient.address"
+									   maxlength="100" 
+									   placeholder="{{ 'patient.addressFieldPlaceholder' | i18n }}"/>
+							</label>
+						</div>
+					</div>
+
+				</fieldset>
+
+			</form>
+
+			<fieldset class="fieldsetItems">
+				<legend>
+					<h4 data-ng-pluralize 
+						data-count="patient.custodians.length" 
+						data-when="{ '0': '{{ custodianPluralOptions.zero | i18n }}', '1': '{{ custodianPluralOptions.one | i18n }}', 'other': '{{ custodianPluralOptions.many | i18n:{quantity:patient.custodians.length} }}' }">
+					</h4>
+				</legend>
+
+		    	<fieldset ng-repeat="custodian in patient.custodians">
+					<legend>
+						<h5 data-i18n="custodian.custodianNumber"
+							data-number="{{ ($index + 1) }}">
+						</h5>
+					</legend>
+					
+					<form name="custodianForm{{$index}}">
+						<div class="row">
+							<div class="small-12 medium-6 columns">
+								<label>
+									{{ 'patient.identificationField' | i18n }}
+								</label>
+								<div class="row">
+									<div class="small-12 medium-6 columns">
+										<select class="expand"
+												name="identificationTypeId"
+												id="identificationTypeId"
+												ng-model="custodian.identificationTypeId"
+												required>
+											<option value="" selected disabled
+												data-i18n="patient.identificationTypeField">
+											</option>
+											<option ng-repeat="idType in identificationTypeList" 
+													ng-selected="idType.identificationTypeId == custodian.identificationTypeId"
+													value="{{idType.identificationTypeId}}">
+												{{ idType.abbeviation + ' - ' + idType.name }}
+											</option>
+										</select>
+									</div>
+									<div class="small-12 medium-6 columns">
+										<input type="text" 
+											   name="identificationNumber" 
+											   id="identificationNumber" 
+											   ng-model="custodian.identificationNumber"
+											   maxlength="15" 
+											   placeholder="{{ 'patient.identificationNumberField' | i18n }}" required />
+									</div>
+								</div>
+								<div class="row">
+									<div class="small-12 columns">
+										<span class="error error-input" 
+												ng-show="(custodianForm{{$index}}.identificationNumber.$dirty && custodianForm{{$index}}.identificationNumber.$invalid) || (custodianForm{{$index}}.identificationNumber.$dirty
+												 && custodianForm{{$index}}.identificationType.$invalid)">
+											<span ng-show="custodianForm{{$index}}.identificationType.$error.required"
+												data-i18n="patient.identificationTypeFieldRequired">
+											</span>
+
+											<span ng-show="custodianForm{{$index}}.identificationNumber.$dirty && custodianForm{{$index}}.identificationNumber.$error.required"
+												data-i18n="patient.identificationNumberFieldRequired">
+											</span>
+
+										</span>
+									</div>
+								</div>
+							</div>
+							<div class="small-12 medium-6 columns">
+								<label>{{ 'custodian.custodianFullNameField' | i18n }}
+									<input type="text"
+										   name="name" 
+										   id="name" 
+										   ng-model="custodian.fullName"
+										   maxlength="100" 
+										   placeholder="{{ 'custodian.custodianFullNameFieldPlaceholder' | i18n }}" required />
+								</label>
+								<span class="error error-input" 
+										ng-show="custodianForm{{$index}}.name.$dirty && custodianForm{{$index}}.name.$invalid">
+									<span ng-show="custodianForm{{$index}}.name.$error.required" 
+										data-i18n="custodian.custodianFullNameFieldRequired">
+									</span>
+								</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="small-12 medium-3 columns">
+								<label>
+									{{ 'custodian.custodianRelationshipField' | i18n }}
+									<select class="expand"
+											name="relationship"
+											ng-model="custodian.relationship"
+											required>
+										<option value="" selected disabled
+											data-i18n="custodian.custodianRelationshipFieldPlaceholder">
+										</option>
+										<option ng-repeat="relationship in relationshipList" 
+												value="{{relationship.relationshipId}}">
+											{{relationship.name}}
+										</option>
+									</select>
+								</label>
+								<span class="error error-input" 
+										ng-show="custodianForm{{$index}}.relationshipId.$dirty && custodianForm{{$index}}.relationshipId.$invalid">
+									<span ng-show="custodianForm{{$index}}.relationshipId.$error.required" 
+										data-i18n="patient.maritalStatusFieldRequired">
+									</span>
+								</span>
+							</div>
+							<div class="small-3 columns">
+								<label>{{ 'form.phoneField' | i18n }}
+									<input type="text" 
+										   autofocus
+										   name="phone" 
+										   id="phone" 
+										   ng-model="custodian.phone"
+										   maxlength="100" 
+										   placeholder="{{ 'form.phoneFieldPlaceholder' | i18n }}" required />
+								</label>
+								<span class="error error-input" 
+										ng-show="custodianForm{{$index}}.phone.$dirty && custodianForm{{$index}}.phone.$invalid">
+									<span ng-show="custodianForm{{$index}}.phone.$error.required" 
+										data-i18n="form.phoneFieldRequired">
+									</span>
+								</span>
+							</div>
+							<div class="small-6 columns">
+								<label>{{ 'form.emailField' | i18n }}
+									<input type="text" 
+										   autofocus
+										   name="email" 
+										   id="email" 
+										   ng-model="custodian.email"
+										   maxlength="100" 
+										   placeholder="{{ 'form.emailFieldPlaceholder' | i18n }}" required />
+								</label>
+								<span class="error error-input" 
+										ng-show="custodianForm{{$index}}.email.$dirty && custodianForm{{$index}}.email.$invalid">
+									<span ng-show="custodianForm{{$index}}.email.$error.required" 
+										data-i18n="form.emailFieldRequired">
+									</span>
+								</span>
+							</div>
+						</div>
+					</form><!-- ends custodian form -->
+				</fieldset>
+
+				<div class="row">
+			        <div class="small-12 columns clearfix">
+						<a data-i18n="custodian.custodianCreate"
+							ng-disabled="patient.custodians.length >= CONSTANTS.APP.PATIENT_CUSTODIANS_MAX"
+							ng-click="createEmptyCustodian()">
+						</a>
+					</div>
+				</div>
+			</fieldset>
+
+        </div>
+    </div>
+
+    <!--<div data-ng-include="'views/app/saveFormBar.html'"></div>-->
+    
+</section>
+
+
+

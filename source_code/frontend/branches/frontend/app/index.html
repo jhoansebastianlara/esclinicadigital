@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Clinica Digital</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
+    <link rel="stylesheet" href="css/app/app.css">
+    <link rel="stylesheet" href="css/foundation/foundation.css" />
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/src/loading-bar.css" />
+    <link rel="stylesheet" href="bower_components/angucomplete-alt/angucomplete-alt.css" />
+    
+
+    <!-- ng-tags style -->
+    <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.css">
+    <!--link rel="stylesheet" href="bower_components/responsive-tables/ng-tags-input.min.css" -->
+
+</head>
+<body ng-controller="AppController">
+
+    <div ng-if="userData.isConnected" data-ng-include="'views/app/topBar.html'"></div>
+    <div ng-view></div>
+  
+    <script src="bower_components/angular/angular.js"></script>
+
+    <script src="bower_components/angular-route/angular-route.js"></script>  
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-localization/angular-localization.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-foundation/mm-foundation-tpls.js"></script>
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/angular-loading-bar/src/loading-bar.js"></script>
+    <script src="bower_components/responsive-tables/responsive-tables.js"></script>
+    
+    <!-- ng-tags -->
+    <script src="bower_components/ng-tags-input/ng-tags-input.js"></script>
+
+    <!-- angular-google-places-autocomplete -->
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+    <script src="bower_components/angular-ngautocomplete/src/ngAutocomplete.js"></script>
+
+    <!-- angucomplete-alt -->
+    <script src="bower_components/angucomplete-alt/angucomplete-alt.js"></script>
+
+    <!-- /js/app/ -->
+    <script src="js/app/app.js"></script>
+    
+    <!-- /js/app/constants/ -->
+    <script src="js/app/constants/AppConstants.js"></script>
+    
+    <!-- /js/app/controllers/ -->
+    <script src="js/app/controllers/AppController.js"></script>
+    <script src="js/app/controllers/BreadcrumbsController.js"></script>
+    <script src="js/app/controllers/DashboardController.js"></script>
+    <script src="js/app/controllers/TopBarController.js"></script>
+
+    <!-- /js/app/directives/ -->
+    <script src="js/app/directives/AppDirective.js"></script>    
+    <script src="js/app/directives/UniqueDirective.js"></script>
+
+    <!-- /js/app/factories/ -->
+    <script src="js/app/factories/AppFactory.js"></script>
+    <script src="js/app/factories/UtilitiesFactory.js"></script>
+    <script src="js/app/factories/FocusFactory.js"></script>
+    
+    <!-- /js/app/filters/ -->
+    <script src="js/app/filters/AppFilter.js"></script>
+    <script src="js/app/filters/CapitalizeFilter.js"></script>
+    <script src="js/app/filters/FullNameFilter.js"></script>
+    <script src="js/app/filters/NumberFixedLength.js"></script>
+
+    <!-- /js/app/modals/ -->
+    <script src="js/app/modals/controllers/AppErrorModalController.js"></script>
+    <script src="js/app/modals/controllers/NotDataFoundModalController.js"></script>
+    <script src="js/app/modals/controllers/LocalStorageUnsupportedModalController.js"></script>
+
+    <!-- /js/app/services/ -->
+    <script src="js/app/services/AppService.js"></script>
+    <script src="js/app/services/ModalService.js"></script>
+
+    <!-- /js/user/ -->
+    <script src="js/user/controllers/UserController.js"></script>
+    <script src="js/user/services/UserService.js"></script>
+    
+
+    <!-- /js/user/auth/ -->
+    <script src="js/user/auth/controllers/AuthController.js"></script>
+    <script src="js/user/auth/services/AuthService.js"></script>
+
+    <!-- /js/patient/ -->
+    <script src="js/patient/controllers/PatientController.js"></script>
+    <script src="js/patient/services/PatientService.js"></script>
+
+    <!-- /js/patient/medicalRecord/ -->
+    <script src="js/patient/medicalRecord/controllers/MedicalRecordController.js"></script>
+    <script src="js/patient/medicalRecord/services/MedicalRecordService.js"></script>
+
+    <!-- /js/patient/medicalHistory/ -->
+    <script src="js/patient/medicalHistory/controllers/MedicalHistoryController.js"></script>
+    <script src="js/patient/medicalHistory/services/MedicalHistoryService.js"></script>
+
+
+</body>
+</html>

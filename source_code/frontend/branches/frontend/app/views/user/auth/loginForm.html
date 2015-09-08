@@ -1,0 +1,77 @@
+<section class="form-container-custom">
+    <div class="row" style="margin-top: 80px;">
+    	<div class="small-0 medium-3 large-4 columns show-for-medium-up">
+			&nbsp;
+		</div>
+        <div class="small-12 medium-6 large-4 columns panel">
+	        <form name="superForm">
+				<div class="row">
+					<div class="small-12 columns">
+						<h4 data-i18n="loginForm.loginTitle"></h4>
+						<div class="panel-body"  ></div>
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					<div class="small-12 columns">
+						<label>{{ 'loginForm.usernameField' | i18n }} <small>{{ 'common.required' | i18n }}</small>
+							<input type="text" 
+								   autofocus
+								   name="username"
+								   ng-model="user.username"
+								   maxlength="100" 
+								   placeholder="{{ 'loginForm.usernameField' | i18n }}" required />
+						</label>
+
+					    <span class="error error-input" 
+								ng-show="superForm.username.$dirty && superForm.username.$error">
+							<span ng-show="superForm.username.$error.required"
+									data-i18n="loginForm.passwordRequired">
+							</span>
+						</span>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="small-12 columns">
+						<label>{{ 'loginForm.passwordField' | i18n }} <small>{{ 'common.required' | i18n }}</small>
+							<input type="password" 
+								   name="password" 
+								   ng-model="user.password"
+								   id="password"
+								   maxlength="100" 
+								   placeholder="{{ 'loginForm.passwordField' | i18n }}" required />
+						</label>
+						<span class="error error-input"
+								ng-show="superForm.password.$dirty && superForm.password.$invalid">
+							<span ng-show="superForm.password.$error.required"
+									data-i18n="loginForm.passwordRequired">								
+							</span>
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="small-12 columns">
+						<span class="error" 
+							ng-show="isLoginFailed">
+							<span data-i18n="loginForm.credentialsIncorrectMessage"></span>
+						</span>
+
+					</div>
+				</div>
+				<div class="row">
+		            <div class="small-12 columns">
+		                <button class="button no-margin-custom expand" 
+		                	ng-disabled="superForm.$invalid"
+		                    ng-click="login()"
+		                    id="continueButton"
+		                    data-i18n="loginForm.loginTitle"></button>
+		            </div>
+				</div>
+			</form>
+        </div>
+        <div class="small-0 medium-3 large-4 columns show-for-medium-up">
+			&nbsp;
+		</div>
+    </div>
+</section>

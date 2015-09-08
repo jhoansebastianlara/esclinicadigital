@@ -1,0 +1,29 @@
+
+<section class="form-container-custom" style="position: relative;">
+    <div class="row">
+    	<form name="medicalRecordForm">    		
+	    	<div ng-if="userData.isConnected" data-ng-include="'views/app/breadcrumbs.html'"></div>
+
+	        <div class="small-12 columns">
+	        	
+				<dl class="tabs">
+				  	<dd ng-repeat="tab in tabs" ng-class="tab.isActive" ng-click="updateTab(tab.key)">
+				  		<a ng-if="tab.key != 'TAB_A'">{{ tab.title | i18n }}</a>
+				  		<a ng-if="tab.key == 'TAB_A'">{{ tabsConfig.titlePersonalDataTab }}</a>
+				  	</dd>
+				</dl>
+
+				<div class="tabs-content">
+				  <div ng-repeat="tab in tabs" class="content" ng-show="tab.isActive">
+				        <ng-include src="tab.templateUrl"></ng-include>
+				  </div>
+				</div>
+
+	        </div>
+    	</form>
+    </div>
+
+
+    <div data-ng-include="'views/app/saveFormBar.html'"></div>
+    
+</section>

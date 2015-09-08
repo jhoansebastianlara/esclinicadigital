@@ -1,0 +1,58 @@
+
+<section class="scroll-container">
+    <div class="row">
+        
+        <div ng-if="userData.isConnected" data-ng-include="'views/app/breadcrumbs.html'"></div>
+
+        <div class="small-12 columns">
+            <div class="row searchBar">
+                <div class="small-12 medium-6 large-3 columns">
+                    <a href="/#{{ CONSTANTS.MODULES.USERS.ACTIONS.CREATE.PATH }}" 
+                    	class="button tiny expand"
+                        data-i18n="list.breadcrumbsUsersAdd">
+                    </a>
+                </div>
+                <div class="small-12 medium-6 columns right">
+                    <div class="row collapse">
+                        <div class="small-12 columns">
+                            <input type="text" 
+                                ng-model="searchText"
+                                placeholder="{{ 'user.searchFieldPlaceholder' | i18n }}" 
+                                value="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <table width="100%" class="responsive">
+                    <thead>
+                        <tr>
+                            <th width="100" data-i18n="user.usernameTableHead"></th>
+                            <th width="100" data-i18n="user.createdAtTableHead"></th>
+                            <th width="180" data-i18n="user.nameTableHead"></th>
+                            <th width="120" data-i18n="user.identificationTableHead"></th>
+                            <th width="100" data-i18n="common.options"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in userList | filter: searchText">
+                            <td>{{user.username}}</td>
+                            <td>
+                            	{{utilities.date.parseTheDate(user.createdAt) | date:'mediumDate'}}
+                            </td>
+                            <td>{{user.name | FullNameFilter:user.lastname}}</td>
+                            <td>{{user.identificationNumber}}</td>
+                            <td>
+                                <a href="#/users/edit/{{user.userId}}" 
+                                   class="button tiny radius"
+                                   style="margin: 0px !important"
+                                   data-i18n="common.edit">
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

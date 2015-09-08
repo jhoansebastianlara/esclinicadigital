@@ -1,0 +1,61 @@
+
+<section class="scroll-container">
+    <div class="row">
+        
+        <div ng-if="userData.isConnected" data-ng-include="'views/app/breadcrumbs.html'"></div>
+
+        <div class="small-12 columns">
+            <div class="row searchBar">
+                <div class="small-12 medium-6 large-3 columns">
+                    <a href="/#{{ CONSTANTS.MODULES.PATIENTS.ACTIONS.CREATE.PATH }}" 
+                        class="button tiny expand"
+                        data-i18n="list.breadcrumbsPatientsAdd">
+                    </a>
+                </div>
+                <div class="small-12 medium-6 columns right">
+                    <div class="row collapse">
+                        <div class="small-12 columns">
+                            <input type="text" 
+                                ng-model="searchText"
+                                placeholder="{{ 'patient.searchFieldPlaceholder' | i18n }}" 
+                                value="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <table width="100%" class="responsive">
+                    <thead>
+                        <tr>
+                            <th width="100" data-i18n="patient.createdAtTableHead"></th>
+                            <th width="180" data-i18n="patient.nameTableHead"></th>
+                            <th width="120" data-i18n="patient.identificationTableHead"></th>
+                            <th width="100" data-i18n="common.options"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="patient in patientList | filter: searchText">
+                            <td>
+                                {{ utilities.date.parseTheDate(patient.createdAt) | date:'mediumDate' }}
+                            </td>
+                            <td>{{patient.name | FullNameFilter:patient.lastname}}</td>
+                            <td>{{patient.identificationNumber}}</td>
+                            <td>
+                                <a href="#/patients/edit/{{patient.patientId}}" 
+                                   class="button tiny radius"
+                                   style="margin: 0px !important"
+                                   data-i18n="common.edit">
+                                </a>
+                                <a href="#/patients/medicalRecord/{{patient.patientId}}" 
+                                   class="button tiny radius"
+                                   style="margin: 0px !important"
+                                   data-i18n="common.medicalRecord">
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

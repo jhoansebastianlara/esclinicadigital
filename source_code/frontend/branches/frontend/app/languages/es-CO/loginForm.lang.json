@@ -1,0 +1,9 @@
+{
+	"loginTitle": "Iniciar Sesión",
+	"usernameField": "Usuario",
+	"usernameRequired": "El nombre de usuario es requerido.",
+	"passwordField": "Contraseña",
+	"passwordRequired": "La contraseña es requerida.",
+	"credentialsIncorrectMessage": "Combinación de usuario y contraseña inválida, intente de nuevo."
+
+}

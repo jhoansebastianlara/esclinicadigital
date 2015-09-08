@@ -1,0 +1,26 @@
+
+<section class="form-container-custom" style="position: relative;" ng-controller="MedicalHistoryController">
+    <div class="row">
+
+        <div class="small-12 columns">
+        	<label ng-repeat="medicalHistory in medicalHistorys">{{medicalHistory.name}}
+        		<tags-input ng-model="medicalHistory.newTags"  
+                        display-property="description"
+    					replace-spaces-with-dashes= "false"
+                        enable-editing-last-tag = "true"
+    					placeholder="Agregar Antecedente"
+                        >
+    			</tags-input>
+                <ul class="inline-list" ng-repeat= "tag in medicalHistory.patientMedicalHistories.data" >
+                        <li>{{tag.description}}</li>
+                </ul>
+      		</label>
+        </div>
+    </div>
+
+    <div data-ng-include="'views/app/saveFormBar.html'"></div>
+    
+</section>
+
+
+

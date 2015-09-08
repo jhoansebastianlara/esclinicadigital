@@ -1,0 +1,51 @@
+{
+	"searchFieldPlaceholder": "Busca por nombre, No. de identificación ...",
+
+	"createdAtTableHead": "Creado",
+	"nameTableHead": "Nombre",
+	"identificationTableHead": "Identificación",
+
+
+	"nameField": "Nombre",
+	"nameFieldPlaceholder": "Nombre",
+	"nameFieldRequired": "El nombre es requerido.",
+
+	"lastnameField": "Apellidos",
+	"lastnameFieldPlaceholder": "Apellidos",
+	"lastnameFieldRequired": "Los apellidos son requeridos.",
+
+	"identificationField": "Documento de Identidad",
+	"identificationTypeField": "Tipo de identificación",
+	"identificationNumberField": "Número",
+	"identificationTypeFieldRequired": "El tipo de identificación es requerido.",
+	"identificationNumberFieldRequired": "El número de identificación es requerido.",	
+	"identificationNumberFieldAlreadyExists": "El número de identification \"{identificationNumber}\" ya existe.",
+
+	"genderField": "Sexo",
+	"genderFieldSelectOption": "Seleccione el Sexo",
+	"genderFieldRequired": "El sexo es requerido.",
+
+	"birthdateField": "Fecha de Nacimiento",
+	"birthdateFieldRequired": "La fecha de nacimiento es requerida.",
+	"birthdateFieldInvalid": "La fecha de nacimiento es inválida.",
+
+	"placebirthField": "Lugar de Nacimiento",
+	"placebirthFieldPlaceholder": "Cuidad, Departamento, País",
+	"placebirthFieldRequired": "El lugar de nacimiento es requerido.",
+
+	"maritalStatusField": "Estado Civil",
+	"maritalStatusFieldPlaceholder": "Seleccione el estado civil",
+	"maritalStatusFieldRequired": "El estado civil es requerido.",
+
+	"residenceCityField": "Lugar de residencia",
+	"residenceCityFieldPlaceholder": "Ciudad, Departamento, País",
+
+	"addressField": "Dirección",
+	"addressFieldPlaceholder": "Dirección completa",
+
+	"occupationField": "Ocupación",
+	"occupationFieldPlaceholder": "Ocupación"
+
+
+
+}

@@ -1,0 +1,18 @@
+<br>
+<div class="small-12 columns" ng-controller="BreadcrumbsController">
+    <nav class="breadcrumbs" role="menubar" aria-label="breadcrumbs">
+
+	    <li role="menuitem" ng-repeat="breadcrumb in breadcrumbList" 
+	    		class="{{ breadcrumb.isCurrent }}">
+	    	<a ng-href="#{{ breadcrumb.path }}">{{ breadcrumb.name }}</a>
+	    </li>
+<!--
+	    <li role="menuitem">
+	    	<a href="#/users" data-i18n="list.breadcrumbsUsers"></a>
+	    </li>
+	    <li role="menuitem" class="current">
+	    	<a data-i18n="list.breadcrumbsUsersAdd"></a>
+	    </li>
+-->
+	</nav>
+</div>

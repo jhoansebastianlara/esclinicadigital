@@ -1,0 +1,48 @@
+{
+	"welcome": "Bienvenido {name}",
+    "yes": "Yes",
+    "no": "No",
+    "required": "Requerido",
+    "ok": "Ok",
+
+    "medicalRecord": "Historia Clínica",
+    
+    "search": "Buscar",
+    "menu": "Menú",
+    "options": "Opciones",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "view": "Ver",
+    "edit": "Editar",
+
+    "day": "Día",
+    "month": "Mes",
+    "year": "Año",
+
+    "maleGender": "Hombre",
+    "femaleGender": "Mujer",
+
+    "january": "Enero",
+    "february": "Febrero",
+    "march": "Marzo",
+    "april": "Abril",
+    "may": "Mayo",
+    "june": "Junio",
+    "july": "Julio",
+    "august": "Agosto",
+    "september": "Septiembre",
+    "october": "Octubre",
+    "november": "Noviembre",
+    "december": "Diciembre",
+
+    "localStorageNotSupportedTitle": "Su navegador no soporta la aplicación",
+    "localStorageNotSupportedMessage": "Por favor actualice su navegador para poder utilizar esta aplicación.",
+    
+    "appErrorTitle": "Ha ocurrido un error en la aplicación (Error #{errorCode})",
+    "appErrorMessage": "Por favor intente más tarde, gracias.",
+
+    "notDataFoundTitle": "Registro no encontrado",
+    "notDataFoundMessage": "Por favor intente más tarde, gracias."
+
+
+}

@@ -1,0 +1,20 @@
+{
+	"custodian": "Responsable",
+	"custodianCreate": "+ Adicionar Responsable",
+
+	"custodianPluralsZero" : "Sin Responsables",
+	"custodianPluralsOne" : "Responsable",
+	"custodianPluralsMany" : "{quantity} Responsables",
+
+
+	"custodianNumber": "{number}&deg; Responsable",
+
+	"custodianFullNameField": "Nombre Completo",
+	"custodianFullNameFieldPlaceholder": "Nombres y apellidos",
+	"custodianFullNameFieldRequired": "El nombre completo es requerido.",
+
+	"custodianRelationshipField": "Parentesco",
+	"custodianRelationshipFieldPlaceholder": "Parentesco con el paciente",
+	"custodianRelationshipFieldRequired": "El parentesco es requerido."
+
+}

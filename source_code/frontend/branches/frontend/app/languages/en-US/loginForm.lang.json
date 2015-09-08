@@ -1,0 +1,9 @@
+{
+	"loginTitle": "Log In",
+	"usernameField": "Username",
+	"usernameRequired": "The username is required",
+	"passwordField": "Password",
+	"passwordRequired": "The password is required.",
+	"credentialsIncorrectMessage": "Combination of user name and password invalid, please try again."
+
+}

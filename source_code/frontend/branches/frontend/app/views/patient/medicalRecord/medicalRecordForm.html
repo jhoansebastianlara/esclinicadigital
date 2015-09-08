@@ -1,0 +1,243 @@
+<section class="form-container-custom" data-ng-init="initMedicalRecord()">
+	<div class="row">
+		<div class="small-0 medium-2 columns">
+			<ul class="side-nav">
+				<li>
+					<input type="text" 
+							placeholder="Buscar" 
+							ng-model="searchText"
+							value="">
+				</li>
+				<li>
+					<button type="submit" 
+		                    class="button tiny no-margin-custom expand" 
+		                    ng-click="createMedicalRecord()">
+	                    Nuevo
+	                </button>
+				</li>
+				<li>
+					<a ng-click="getMedicalRecord(patientMedicalRecordEvolution.medicalRecordId)">
+						00/00/00
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="small-12 medium-10 columns">
+			<div class="row">
+				<div class="small-12 columns">
+					<fieldset class="fieldset-standar">
+						<legend><h4>Datos de la consulta</h4></legend>
+						<div class="row">
+							<div class="small-6 medium-3 columns">
+								<label>
+									Fecha de la consulta
+									</br>
+									<kbd>{{ medicalRecordEvolution.date | date:'dd/MM/yyyy h:mma' }}</kbd>
+								</label>
+							</div>
+							<div class="small-6 medium-3 columns">
+								<label>
+									Número de la historia
+									</br>
+									<kbd>{{ medicalRecordEvolution.evolutionNumber | NumberFixedLength:10 }}</kbd>
+								</label>
+							</div>
+							<div class="small-6 medium-3 columns">
+								&nbsp;
+							</div>
+							<div class="small-6 medium-3 columns">
+								&nbsp;
+							</div>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+			<div class="row">
+				<div class="small-12 columns">
+					<label>
+						Motivo de consulta y enfermedad actual
+						<textarea
+							autofocus
+							name="purpose"
+							id="purpose"
+							ng-model="medicalRecordEvolution.purpose"
+							placeholder="Ingrese el motivo por el cual acude el paciente"></textarea>
+					</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="small-12 columns">
+					<fieldset class="fieldset-standar" ng-repeat="exam in initData.examList">
+						<legend><h4 ng-bind-html="exam.name"></h4></legend>
+						<div class="row">
+							<div class="small-6 medium-3 columns" ng-repeat="examItem in exam.exam_items">
+								<label title="{{ examItem.name }}">
+	        						{{ examItem.abbreviation }}
+									<input type="{{ examItem.type }}"
+										   name="{{ examItem.technicalName }}" 
+										   id="{{ examItem.technicalName }}" 
+										   ng-model="examItem.value"
+										   maxlength="{{ examItem.maxlength }}" 
+										   placeholder="{{ examItem.name }}" 
+										   ng-disabled="{{ examItem.disabled }}" 
+										   ng-change="{{ examItem.onChageEvent }}" />
+								</label>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+			<div class="row">
+				<div class="small-12 columns">
+					<br>
+					<fieldset class="fieldset-standar">
+						<legend>
+							<h4>Diagn&oacute;stico</h4>
+						</legend>
+						<div class="row">
+							<div ng-repeat="diagnostic in initData.diagnosticList">
+								<div class="small-12 medium-6 columns">
+									<label>
+		        						<span ng-if="$index == 0">
+		        							{{ CONSTANTS.APP.MEDICAL_RECORDS.DIAGNOSTICS.CONFIG.LABELS.MAIN }}
+		        						</span>
+		        						<span ng-if="$index > 0">
+		        							{{ CONSTANTS.APP.MEDICAL_RECORDS.DIAGNOSTICS.CONFIG.LABELS.RELATED }}
+		        						</span>
+
+										<angucomplete-alt ng-attr-id="{{ diagnostic.inputId }}"
+							              selected-object="diagnostic.selectedCIE"
+							              placeholder="{{ CONSTANTS.APP.MEDICAL_RECORDS.DIAGNOSTICS.CONFIG.PLACEHOLDER }}"
+							              pause="{{ CONSTANTS.APP.MEDICAL_RECORDS.DIAGNOSTICS.CONFIG.PAUSE }}"
+							              remote-url="{{ (CONSTANTS.SETTINGS.API.HOST).concat(CONSTANTS.APP.MEDICAL_RECORDS.DIAGNOSTICS.CONFIG.REMOTE_URL) }}"
+							              remote-url-request-formatter="CONSTANTS.APP.MEDICAL_RECORDS.DIAGNOSTICS.CONFIG.REMOTE_URL_REQUEST_FORMATTER"
+							              remote-url-response-formatter="CONSTANTS.APP.MEDICAL_RECORDS.DIAGNOSTICS.CONFIG.REMOTE_URL_RESPONSE_FORMATTER"
+	              						  remote-url-data-field="{{ CONSTANTS.APP.MEDICAL_RECORDS.DIAGNOSTICS.CONFIG.REMOTE_URL_DATA_FIELD }}"
+	              						  focus-out="validateDiagnostic()"
+	              						  focus-in="focusIn()"
+							              title-field="{{ CONSTANTS.APP.MEDICAL_RECORDS.DIAGNOSTICS.CONFIG.TITLE_FIELD }}"
+							              description-field="{{ CONSTANTS.APP.MEDICAL_RECORDS.DIAGNOSTICS.CONFIG.DESCRIPTION_FIELD }}"
+							              minlength="{{ CONSTANTS.APP.MEDICAL_RECORDS.DIAGNOSTICS.CONFIG.MIN_LENGTH }}"
+							              auto-match="{{ CONSTANTS.APP.MEDICAL_RECORDS.DIAGNOSTICS.CONFIG.AUTO_MATCH }}"
+							              text-searching="{{ CONSTANTS.APP.MEDICAL_RECORDS.DIAGNOSTICS.CONFIG.TEXT_SEARCHING }}"
+							              text-no-results="{{ CONSTANTS.APP.MEDICAL_RECORDS.DIAGNOSTICS.CONFIG.TEXT_NO_RESULTS }}"
+							              input-class="{{ CONSTANTS.APP.MEDICAL_RECORDS.DIAGNOSTICS.CONFIG.INPUT_CLASS }}"
+							              match-class="{{ CONSTANTS.APP.MEDICAL_RECORDS.DIAGNOSTICS.CONFIG.MATCH_CLASS }}"
+							              ></angucomplete-alt>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="small-12 columns">
+								<a ng-click="addDiagnostic(true)">
+									+ Agregar Diagnóstico relacionado
+								</a>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+			<div class="row">
+				<div class="small-12 columns">
+					<label>
+						Conducta
+						<textarea
+							name="conduct"
+							id="conduct"
+							ng-model="medicalRecordEvolution.conduct"
+							placeholder="Ingrese el motivo por el cual acude el paciente"></textarea>
+					</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="small-12 columns">
+					<fieldset class="fieldset-standar">
+						<legend>
+							<h4>RIPS</h4>
+						</legend>
+						<div class="row">
+							<div class="small-12 medium-6 columns">
+								<label>
+	        						Causa Externa
+									<select ng-model="medicalRecordEvolution.externalCauseId">
+										<option value="" selected disabled>
+											Seleccione...
+										</option>
+										<option ng-repeat="externalCause in initData.externalCauseList"												
+												value="{{ externalCause.externalCauseId }}">
+											{{ externalCause.name }}
+										</option>
+									</select>
+								</label>								
+							</div>
+							<div class="small-12 medium-6 columns">
+								<label>
+	        						Tipo de diagn&oacute;stico principal
+									<select ng-model="medicalRecordEvolution.principalDiagnosticType">
+										<option value="" selected disabled>
+											Seleccione...
+										</option>
+										<option ng-repeat="mainDiagnosticType in initData.mainDiagnosticTypeList"												
+												value="{{ mainDiagnosticType.code }}">
+											{{ mainDiagnosticType.name }}
+										</option>
+									</select>
+								</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="small-12 medium-6 columns">
+								<label>
+	        						Finalidad de la consulta
+									<select ng-model="medicalRecordEvolution.purposeAppointmentId">
+										<option value="" selected disabled>
+											Seleccione...
+										</option>
+										<option ng-repeat="purposeAppointment in initData.purposeAppointmentList"
+												value="{{ purposeAppointment.purposeAppointmentId }}">
+											{{ purposeAppointment.name }}
+										</option>
+									</select>
+								</label>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+			<div class="row">
+				<div class="small-12 columns">
+					<fieldset class="fieldset-standar">
+						<legend><h4>Profesional</h4></legend>
+						<div class="row">
+							<div class="small-12 medium-6 columns">
+								<label>
+									Nombre
+									</br>
+									<kbd>{{ userData.name | FullNameFilter:userData.lastname }}</kbd>
+								</label>
+							</div>
+							<div class="small-12 medium-6 columns">
+								<label>
+									Identificación
+									</br>
+									<kbd>CC</kbd>
+									<kbd>1234567890</kbd>
+								</label>
+							</div>
+							<div class="small-12 medium-6 columns">
+								<label>
+									Nro. Registro profesional asistencial
+									</br>
+									<kbd>73732989/1990</kbd>
+								</label>
+							</div>
+							<div class="small-12 medium-6 columns">
+							</div>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

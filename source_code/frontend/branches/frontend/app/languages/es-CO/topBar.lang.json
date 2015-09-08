@@ -1,0 +1,21 @@
+{
+	"appName": "OBGIN",
+	"searchFieldPlaceholder": "Busca pacientes, historias, citas ...",
+	"signOut": "Cerrar Sesión",
+
+	"loginItemMenu": "Iniciar Sesión",
+	
+	"dashItemMenu": "Inicio",	
+	
+	"usersItemMenu": "Usuarios",
+	"usersCreateItemMenu": "Nuevo Usuario",
+	"usersUpdateItemMenu": "Editar Usuario",
+
+	"patientsItemMenu": "Pacientes",
+	"patientsCreateItemMenu": "Nuevo Paciente",
+	"patientsUpdateItemMenu": "Editar Paciente",
+
+	"patientsMedicalRecordItemMenu": "Historias Clínicas",
+
+	"calendarItemMenu": "Calendario"
+}

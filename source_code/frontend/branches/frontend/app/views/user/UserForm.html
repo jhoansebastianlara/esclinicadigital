@@ -1,0 +1,294 @@
+
+<section class="form-container-custom" style="position: relative;">
+    <div class="row">
+    	
+    	<div ng-if="userData.isConnected" data-ng-include="'views/app/breadcrumbs.html'"></div>
+
+        <div class="small-12 columns">
+	        <form name="theForm">
+				<fieldset>
+					<legend><h4 data-i18n="form.personalData"></h4></legend>
+					<div class="row">
+						<div class="small-12 medium-6 columns">
+							<label>{{ 'user.nameField' | i18n }}
+								<small data-i18n="common.required"></small>
+								<input type="text" 
+									   autofocus
+									   name="name" 
+									   id="name" 
+									   ng-model="user.name"
+									   maxlength="100" 
+									   placeholder="{{ 'user.nameFieldPlaceholder' | i18n }}" required />
+							</label>
+							<span class="error error-input" 
+									ng-show="theForm.name.$dirty && theForm.name.$invalid">
+								<span ng-show="theForm.name.$error.required" 
+									data-i18n="user.nameFieldRequired">
+								</span>
+							</span>
+						</div>
+						<div class="small-12 medium-6 columns">
+							<label>&nbsp;
+								<input type="text" 
+									   name="lastname" 
+									   id="lastname" 
+									   ng-model="user.lastname"
+									   maxlength="100" 
+									   placeholder="{{ 'user.lastnameFieldPlaceholder' | i18n }}" required />
+							</label>
+							<span class="error error-input" 
+									ng-show="theForm.lastname.$dirty && theForm.lastname.$invalid">
+								<span ng-show="theForm.lastname.$error.required"
+									data-i18n="user.lastnameFieldRequired">
+									
+								</span>
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="small-12 medium-6 columns">
+							<label>{{ 'user.usernameField' | i18n }} 
+								<small data-i18n="common.required"></small>
+								<input type="text" 
+									   name="username" 
+									   id="username" 
+									   ng-model="user.username"
+									   data-unique-directive="{id: '{{user.userId}}', property: 'user.username'}"
+									   maxlength="100" 
+									   placeholder="{{ 'user.usernameFieldPlaceholder' | i18n }}" required />
+							</label>
+							<span class="error error-input" 
+									ng-show="(theForm.username.$dirty && theForm.username.$invalid) || theForm.username.$error.unique">
+								<span ng-show="theForm.username.$error.required"
+									data-i18n="user.usernameFieldRequired">
+								</span>
+								<span ng-show="theForm.username.$error.unique"
+									data-i18n="user.usernameFieldAlreadyExists" 
+									data-username="{{user.username}}">
+								</span>
+							</span>
+						</div>
+						<div class="small-12 medium-3 columns">
+							<label>{{ 'user.passwordField' | i18n }}
+								<small data-i18n="common.required"></small>
+								<input type="password" 
+									   	name="password" 
+									   	id="password" 
+									   	ng-model="user.password"
+									   	ng-keyup="checkPassword()"
+									   	ng-minlength="{{constants.BUSINESS.USER.PASSWORD_MIN_LENGTH}}"
+										ng-maxlength="{{constants.BUSINESS.USER.PASSWORD_MAX_LENGTH}}"
+									   	maxlength="{{constants.BUSINESS.USER.PASSWORD_MAX_LENGTH}}" 
+									   	placeholder="{{ 'user.passwordFieldPlaceholder' | i18n }}" 
+									   	ng-required="isCreateAction" />
+							</label>
+
+							<span class="error error-input" 
+									ng-show="theForm.password.$dirty && theForm.password.$invalid">
+								<span ng-show="theForm.password.$error.required"
+									data-i18n="user.passwordFieldRequired">
+								</span>
+								<span ng-show="theForm.password.$error.minlength">
+									{{ 'user.passwordFieldMinlength' | i18n:{passwordMinlength:constants.BUSINESS.USER.PASSWORD_MIN_LENGTH} }}
+								</span>
+							</span>
+						</div>
+						<div class="small-12 medium-3 columns">
+							<label>{{ 'user.passwordConfirmField' | i18n }}
+								<input type="password" 
+									   name="passwordConfirm" 
+									   id="passwordConfirm" 
+									   ng-model="user.passwordConfirm"
+									   ng-keyup="checkPassword()"
+									   ng-minlength="{{constants.BUSINESS.USER.PASSWORD_MIN_LENGTH}}"
+									   ng-maxlength="{{constants.BUSINESS.USER.PASSWORD_MAX_LENGTH}}"
+									   maxlength="{{constants.BUSINESS.USER.PASSWORD_MAX_LENGTH}}" 
+									   placeholder="{{ 'user.passwordConfirmFieldPlaceholder' | i18n }}" 
+									   ng-required="isCreateAction" />
+							</label>
+							<span class="error error-input" 
+									ng-show="theForm.passwordConfirm.$dirty">
+								<span ng-show="theForm.passwordConfirm.$invalid && theForm.passwordConfirm.$error.required"
+									data-i18n="user.passwordConfirmFieldRequired">
+								</span>
+								<span ng-show="!theForm.password.$invalid && !theForm.passwordConfirm.$error.required && !utilities.matchStrings(user.password, user.passwordConfirm)"
+									data-i18n="user.passwordConfirmFieldMatch">
+								</span>
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="small-12 medium-6 columns">
+							<label>
+								{{ 'user.identificationField' | i18n }}
+								<small data-i18n="common.required"></small>
+							</label>
+							<div class="row">
+								<div class="small-12 medium-6 columns">
+									<select class="expand"
+											name="identificationTypeId"
+											id="identificationTypeId"
+											ng-model="user.identificationTypeId"
+											required>
+										<option value="" selected disabled
+											data-i18n="user.identificationTypeField">
+										</option>
+										<option ng-repeat="idType in identificationTypeList" 
+												ng-selected="idType.identificationTypeId == user.identificationTypeId"
+												value="{{idType.identificationTypeId}}">
+											{{ idType.abbeviation + ' - ' + idType.name }}
+										</option>
+									</select>
+								</div>
+								<div class="small-12 medium-6 columns">
+									<input type="text" 
+										   name="identificationNumber" 
+										   id="identificationNumber" 
+										   ng-model="user.identificationNumber"
+										   maxlength="15" 
+										   data-unique-directive="{id: '{{user.userId}}', property: 'user.identificationNumber'}"
+										   placeholder="{{ 'user.identificationNumberField' | i18n }}" required />
+								</div>
+							</div>
+							<div class="row">
+								<div class="small-12 columns">
+									<span class="error error-input" 
+											ng-show="(theForm.identificationNumber.$dirty && theForm.identificationNumber.$invalid) || (theForm.identificationNumber.$dirty && theForm.identificationType.$invalid) || identificationNumberExists">
+										<span ng-show="theForm.identificationType.$error.required"
+											data-i18n="user.identificationTypeFieldRequired">
+										</span>
+
+										<span ng-show="theForm.identificationNumber.$dirty && theForm.identificationNumber.$error.required"
+											data-i18n="user.identificationNumberFieldRequired">
+										</span>
+
+										<span ng-show="theForm.identificationNumber.$error.unique"
+											data-i18n="user.identificationNumberFieldAlreadyExists" 
+											data-identification-number="{{user.identificationNumber}}">
+										</span>
+
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="small-12 medium-6 columns">
+							<label>
+								{{ 'user.emailField' | i18n }}
+								<small data-i18n="common.required"></small>
+								<input type="email" 
+									   name="email" 
+									   id="email" 
+									   ng-model="user.email"
+									   maxlength="100" 
+									   placeholder="{{ 'user.emailFieldPlaceholder' | i18n }}" required />
+							</label>
+							<span class="error error-input" 
+									ng-show="(theForm.email.$dirty)">
+								<span ng-show="theForm.email.$error.required"
+									data-i18n="user.emailFieldRequired">
+								</span>
+
+								<span ng-show="theForm.email.$error.email"
+									data-i18n="user.emailFieldInvalid">									
+								</span>
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="small-12 medium-6 columns">
+							<label>
+								{{ 'user.birthdateField' | i18n}} 
+								<small data-i18n="common.required"></small>
+								<div class="row">
+									<div class="small-3 large-3 columns">
+										<input type="tel" 
+											   name="day"
+											   id="day"
+											   ng-model="user.day"
+											   ng-change="validateBirthDate()"
+											   placeholder="{{ 'common.day' | i18n }}"
+											   maxlength="2" 
+											   required>
+									</div>
+									<div class="small-5 large-5 columns">
+										<select class="expand"
+												name="month"
+												id="month"
+												ng-model="user.month"
+												ng-change="validateBirthDate()"
+												required>
+											<option value="" selected disabled
+												data-i18n="common.month">
+											</option>
+											<option ng-repeat="month in CONSTANTS.MONT_LIST" 
+												value="{{month.ID}}"
+												data-i18n="common.{{month.NAME}}">
+												
+											</option>
+										</select>
+									</div>
+									<div class="small-4 large-4 columns">
+										<input type="tel" 
+											   name="year"
+											   id="year"
+											   ng-model="user.year"
+											   ng-change="validateBirthDate()"
+											   placeholder="{{ 'common.year' | i18n }}"
+											   maxlength="4" 
+											   required>
+									</div>
+								</div>
+							</label>
+							<span class="error error-input" 
+								   ng-show="theForm.day.$dirty && theForm.month.$dirty && theForm.year.$dirty">
+								<span ng-show="false"
+									data-i18n="user.birthdateFieldRequired">
+								</span>
+								<span ng-show="!isValidBirthdate"
+									data-i18n="user.birthdateFieldInvalid">
+								</span>								
+							</span>
+						</div>
+						<div class="small-12 medium-3 columns">
+							<label>
+								{{ 'user.genderField' | i18n }}
+								<small data-i18n="common.required"></small>
+							</label>
+							<input type="radio" 
+								name="gender" 
+								value="m" 
+								ng-model="user.gender" 
+								id="maleRadio"
+								required>
+							<label for="maleRadio" data-i18n="common.maleGender"></label>
+							
+							<input type="radio" 
+									name="gender" 
+									value="f" 
+									ng-model="user.gender" 
+									id="femaleRadio"
+									required>
+							<label for="femaleRadio" data-i18n="common.femaleGender"></label>
+
+							<span class="error" 
+									ng-show="theForm.gender.$dirty && theForm.gender.$invalid">
+								<span ng-show="theForm.gender.$error.required"
+									data-i18n="user.genderFieldRequired">
+								</span>
+							</span>
+						
+						</div>
+						<div class="small-12 medium-3 columns">
+							
+						</div>
+					</div>
+					
+				</fieldset>
+
+			</form>
+        </div>
+    </div>
+
+    <div data-ng-include="'views/app/saveFormBar.html'"></div>
+    
+</section>

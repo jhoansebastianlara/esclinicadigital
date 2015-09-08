@@ -1,0 +1,13 @@
+{
+	"personalData": "Datos Personales",
+	"medicalHistory": "Antecedentes Médicos",
+	"medicalRecordEvolution": "Evolución",
+	
+	"phoneField": "Teléfono",
+	"phoneFieldPlaceholder": "(###) ###-####",
+	"phoneFieldRequired": "El teléfono es requerido.",
+
+	"emailField": "Correo electrónico",
+	"emailFieldPlaceholder": "nombre@ejemplo.com",
+	"emailFieldRequired": "El correo electrónico es requerido."
+}
